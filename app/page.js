@@ -43,7 +43,7 @@ export function addError(message) {
  * Resets the error block and list to their initial state.
  */
 export function resetErrors() {
-  errorList.innerHtml = '';
+  errorList.innerHTML = '';
   errorContainer.classList.add(hiddenClass);
 }
 
@@ -52,7 +52,7 @@ export function resetErrors() {
  *
  * @param {string[]} errors A list of errors to display.
  */
-export function displayErrors(...errors) {
+export function displayErrors(errors) {
   errors.forEach(addError);
   errorContainer.classList.remove(hiddenClass);
 }

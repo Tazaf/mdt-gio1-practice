@@ -20,11 +20,10 @@ import User from './user.js';
  * @return {Promise<boolean>} A Promise whose value will be `true` if the email is already taken and `false` otherwise
  */
 export async function isEmailExisting(email) {
-  const response = await fetch({
-    method: HttpMethods.GET,
-    url: `${emailVerificationUrl}?email=${email}`
+  const response = await fetch(`${emailVerificationUrl}?email=${email}`, {
+    method: HttpMethods.GET
   });
-  const result = response.json();
+  const result = await response.json();
   return !result.available;
 }
 
@@ -35,10 +34,9 @@ export async function isEmailExisting(email) {
  * @returns {Promise<User>} A Promise whose value will be an object representing the created user
  */
 export async function sendRegistration(registration) {
-  const response = await fetch({
+  const response = await fetch(userRegistrationUrl, {
     method: HttpMethods.POST,
-    url: userRegistrationUrl,
     body: JSON.stringify(registration)
   });
-  return new User(response.json());
+  return new User(await response.json());
 }
